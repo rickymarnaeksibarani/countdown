@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to Special Moments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            color: white;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 2.5em;
+        }
+        #countdown {
+            font-size: 2em;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .emoji {
+            position: absolute;
+            font-size: 2em;
+            animation: explode 1s linear;
+        }
+        @keyframes explode {
+            0% { transform: translate(0, 0) scale(1); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(2); opacity: 0; }
+        }
+        #specialPhoto {
+            display: none;
+            width: 300px;
+            border: 10px solid white;
+            border-radius: 15px;
+            margin-top: 20px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+<h1 id="title">Countdown to Special Moments 💖</h1>
+<div id="countdown"></div>
+<img id="specialPhoto" th:src="@{foto1.jpg}" alt="Special Photo">
+<audio id="bgMusic" th:src="@{/music/happyBirthday.mp3}" type="audio/mp3"></audio>
+
+<script>
+    const photos = ["/foto1.jpg", "/foto2.jpg", "/foto3.jpg", "/foto4.jpg"];
+    let photoIndex=0;
+
+    function updateCountdown() {
+<!--        const targetDateString = "[[${targetDate}]]";-->
+        const targetDate = new Date("2025-03-11T07:58:00");
+<!--        const targetDate = new Date(targetDateString);-->
+        if (isNaN(targetDate.getTime())) {
+            document.getElementById("countdown").innerHTML = "Invalid Date";
+            return;
+        }
+        const countdownInterval = setInterval(() => {
+            const now = new Date();
+            const diff = targetDate - now;
+            if (diff <= 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("title").innerHTML = "HBD sweety PRAYLIN SIMARMATA 💖";
+                showMessages();
+                setInterval(createExplosion, 1000);
+                document.getElementById("bgMusic").play();
+                return;
+            }
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}:${minutes}:${seconds}`;
+        }, 1000);
+    }
+
+    function showMessages() {
+        const messages = [
+            "The special moment has arrived! 🎉",
+            "You are the most amazing person in my life! ❤️",
+            "I am so grateful to have you by my side. 💕",
+            "Let's make more unforgettable memories together! 🌟"
+        ];
+        let index = 0;
+        const countdownElement = document.getElementById("countdown");
+        countdownElement.innerHTML = messages[index];
+        const messageInterval = setInterval(() => {
+            index++;
+            if (index < messages.length) {
+                countdownElement.innerHTML = messages[index];
+            } else {
+                clearInterval(messageInterval);
+                countdownElement.style.display = "none";
+                document.getElementById("title").style.display = "none";
+                document.getElementById("specialPhoto").style.display = "block";
+                setTimeout(() => document.getElementById("specialPhoto").style.opacity = 1, 100);
+                changePhoto();
+            }
+        }, 3000);
+    }
+
+    function createExplosion() {
+        for (let i = 0; i < 30; i++) {
+            const emoji = document.createElement("div");
+            emoji.classList.add("emoji");
+            emoji.innerHTML ="❤🎈🎉";
+            emoji.style.setProperty("--x", `${Math.random() * 200 - 100}px`);
+            emoji.style.setProperty("--y", `${Math.random() * 200 - 100}px`);
+            emoji.style.left = `${Math.random() * 100}vw`;
+            emoji.style.top = `${Math.random() * 100}vh`;
+            document.body.appendChild(emoji);
+            setTimeout(() => emoji.remove(), 1000);
+        }
+    }
+
+    function changePhoto() {
+        const photoElement = document.getElementById("specialPhoto");
+        photoElement.style.opacity = 0;
+        setTimeout(() => {
+            photoElement.src = photos[photoIndex];
+            photoIndex = (photoIndex + 1) % photos.length;
+            setTimeout(() => photoElement.style.opacity = 1, 100);
+        }, 1000);
+        setTimeout(changePhoto, 3000);
+    }
+
+    document.body.addEventListener("click", function() {
+        const bgMusic = document.getElementById("bgMusic");
+        if (bgMusic.paused) {
+            bgMusic.play().catch(error => console.log("Autoplay blocked:", error));
+        }
+    });
+
+    updateCountdown();
+</script>
+</body>
+</html>
