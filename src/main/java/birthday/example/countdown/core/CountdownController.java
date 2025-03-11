@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 @Controller
 public class CountdownController {
     @GetMapping("/Praylin-Simarmata")
-//    http://localhost:8080/forPraylin/?eventDate=2025-03-10T14:48:00
+//    http://localhost:8080/Praylin-Simarmata/?eventDate=2025-03-10T14:48:00
     public String countdownPage(@RequestParam(
             name = "eventDate", required = false) String eventDate, Model model) {
         LocalDateTime targetDate = eventDate != null ? LocalDateTime.parse(eventDate, DateTimeFormatter.ISO_LOCAL_DATE_TIME) : LocalDateTime.now().plusDays(7);

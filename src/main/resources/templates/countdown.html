@@ -43,12 +43,43 @@
             opacity: 0;
             transition: opacity 1s ease-in-out;
         }
+        #question {
+            display: none;
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        .buttons {
+            display: none;
+            margin-top: 20px;
+        }
+        .buttons button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        #yesBtn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #noBtn {
+            background-color: #f44336;
+            color: white;
+            position: absolute;
+        }
     </style>
 </head>
 <body>
 <h1 id="title">Countdown to Special Moments 💖</h1>
 <div id="countdown"></div>
 <img id="specialPhoto" th:src="@{foto1.jpg}" alt="Special Photo">
+<div id="question">So u wanna be my gf? 💕</div>
+<div class="buttons">
+    <button id="yesBtn" onclick="alert('Yay! 😍')">Yes</button>
+    <button id="noBtn" onclick="moveNoButton()">No</button>
+</div>
 <audio id="bgMusic" th:src="@{/music/happyBirthday.mp3}" type="audio/mp3"></audio>
 
 <script>
@@ -57,7 +88,7 @@
 
     function updateCountdown() {
 <!--        const targetDateString = "[[${targetDate}]]";-->
-        const targetDate = new Date("2025-03-11T07:58:00");
+        const targetDate = new Date("2025-03-11T10:58:00");
 <!--        const targetDate = new Date(targetDateString);-->
         if (isNaN(targetDate.getTime())) {
             document.getElementById("countdown").innerHTML = "Invalid Date";
@@ -126,10 +157,25 @@
         photoElement.style.opacity = 0;
         setTimeout(() => {
             photoElement.src = photos[photoIndex];
-            photoIndex = (photoIndex + 1) % photos.length;
-            setTimeout(() => photoElement.style.opacity = 1, 100);
+            photoIndex++;
+            if (photoIndex < photos.length) {
+                setTimeout(() => photoElement.style.opacity = 1, 100);
+                setTimeout(changePhoto, 3000);
+            } else {
+                setTimeout(showQuestion, 2000);
+            }
         }, 1000);
-        setTimeout(changePhoto, 3000);
+    }
+
+    function showQuestion() {
+        document.getElementById("question").style.display = "block";
+        document.querySelector(".buttons").style.display = "block";
+    }
+
+    function moveNoButton() {
+        const noBtn = document.getElementById("noBtn");
+        noBtn.style.left = Math.random() * window.innerWidth + "px";
+        noBtn.style.top = Math.random() * window.innerHeight + "px";
     }
 
     document.body.addEventListener("click", function() {
