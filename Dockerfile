@@ -1,23 +1,27 @@
-# Stage 1: Build aplikasi dengan Maven
-FROM maven:3.8.6-openjdk-17-slim AS builder
+# Stage 1: Build the application
+FROM maven:3.8.5-openjdk-17 AS build
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Salin file pom.xml dan source code
-COPY pom.xml .
+# Copy the pom.xml file and the source code to the working directory
+COPY pom.xml ./
 COPY src ./src
 
-# Build aplikasi dan skip test (opsional)
+# Run Maven to package the application, skipping tests
 RUN mvn clean package -DskipTests
 
-# Stage 2: Jalankan aplikasi
+# Stage 2: Create the final image
 FROM openjdk:17-jdk-slim
+
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy file JAR dari stage builder
-COPY --from=builder /app/target/*.jar app.jar
+# Copy the JAR file from the build stage
+COPY --from=build /app/target/*.jar app.jar
 
-# Expose port yang digunakan
+# Expose the port the application will run on
 EXPOSE 8080
 
-# Jalankan aplikasi
-CMD ["java", "-jar", "app.jar"]
+# Define the command to run the application
+ENTRYPOINT ["java", "-jar", "app.jar"]
