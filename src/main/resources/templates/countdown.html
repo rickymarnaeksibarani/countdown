@@ -5,26 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>For Praylin Special Moments</title>
     <style>
-        <audio id="soundX" src="https://www.myinstants.com/media/sounds/bruh.mp3"></audio>
-<audio id="soundO" src="https://www.myinstants.com/media/sounds/akh.mp3"></audio>
-
-<!--        uncoment this code after DAY - 1-->
-<!--        body {-->
-<!--            font-family: Arial, sans-serif;-->
-<!--            text-align: center;-->
-<!--            background: linear-gradient(to right, #ff7, #ff7eb3);-->
-<!--            color: white;-->
-<!--            height: 100vh;-->
-<!--            display: flex;-->
-<!--            justify-content: center;-->
-<!--            align-items: center;-->
-<!--            flex-direction: column;-->
-<!--            overflow: hidden;-->
-<!--        }-->
         body {
             font-family: Arial, sans-serif;
             text-align: center;
-            background: linear-gradient(to right, #ff0000, #ffff00, #008000); /* Reggae theme */
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
             color: white;
             height: 100vh;
             display: flex;
@@ -32,25 +16,6 @@
             align-items: center;
             flex-direction: column;
             overflow: hidden;
-            position: relative;
-        }
-
-        .leaf {
-            position: absolute;
-            font-size: 30px;
-            opacity: 0.8;
-            animation: fall linear infinite;
-        }
-
-        @keyframes fall {
-            0% {
-                transform: translateY(-10vh) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
-            }
         }
         h1 {
             font-size: 2.5em;
@@ -129,9 +94,9 @@
     </style>
 </head>
 <body>
-<h1 id="title">Under Maintenance ❤️💛💚</h1>
+<h1 id="title">Readyy ??💖</h1>
 <div id="countdown"></div>
-<!--<img id="specialPhoto" th:src="@{foto1.jpg}" alt="Special Photo">-->
+<img id="specialPhoto" th:src="@{xmx1.jpg}" alt="Special Photo">
 <div id="question">So u wanna be my gf? 💕</div>
 <div class="buttons">
     <button id="yesBtn" onclick="showModal()">Yes</button>
@@ -142,77 +107,52 @@
     <button onclick="closeModal()">Okeyyy</button>
 </div>
 <audio id="bgMusic" th:src="@{/music/Bob Marley - I wanna love you Lyrics.mp3}" type="audio/mp3"></audio>
-<!--<audio id="bgMusic" th:src="@{/music/happyBirthday.mp3}" type="audio/mp3"></audio>-->
 
 <script>
-    const photos = ["/foto1.jpg", "/foto2.jpg", "/foto3.jpg",
-    "/foto4.jpg", "/foto5.jpg", "/foto6.jpg", "/foto7.jpg", "/foto8.jpg",
-    "/foto9.jpg", "/foto10.jpg", "/foto11.jpg", "/foto12.jpg", "/foto13.jpg", "/foto14.jpg", "/foto15.jpg"];
+    const photos = ["/xmxch/xmx1.jpg", "/xmxch/xmx2.jpg", "/xmxch/xmx3.jpg",
+    "/xmxch/xmx4.jpg", "/xmxch/xmx5.jpg", "/xmxch/xmx6.jpg", "/xmxch/xmx7.jpg", "/xmxch/xmx8.jpg",
+    "/xmxch/xmx9.jpg", "/xmxch/xmx10.jpg", "/xmxch/xmx11.jpg"];
     let photoIndex=0;
 
-<!--UNCOMENT THIS CODE DAY-1-->
-<!--    function updateCountdown() {-->
-<!--&lt;!&ndash;        const targetDateString = "[[${targetDate}]]";&ndash;&gt;-->
-<!--        const targetDate = new Date("2025-05-20T00:00:00");-->
-<!--&lt;!&ndash;        const targetDate = new Date(targetDateString);&ndash;&gt;-->
-<!--        if (isNaN(targetDate.getTime())) {-->
-<!--            document.getElementById("countdown").innerHTML = "Invalid Date";-->
-<!--            return;-->
-<!--        }-->
-<!--        const countdownInterval = setInterval(() => {-->
-<!--            const now = new Date();-->
-<!--            const diff = targetDate - now;-->
-<!--            if (diff <= 0) {-->
-<!--                clearInterval(countdownInterval);-->
-<!--                document.getElementById("title").innerHTML = "HBD sweety PRAYLIN SIMARMATA 24th💖";-->
-<!--                showMessages();-->
-<!--                setInterval(createExplosion, 1000);-->
-<!--                document.getElementById("bgMusic").play();-->
-<!--                return;-->
-<!--            }-->
-<!--            const days = Math.floor(diff / (1000 * 60 * 60 * 24));-->
-<!--            const hours = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');-->
-<!--            const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');-->
-<!--            const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');-->
-<!--            document.getElementById("countdown").innerHTML = `${days}d ${hours}:${minutes}:${seconds}`;-->
-<!--        }, 1000);-->
-<!--    }-->
-
-        function createLeaf() {
-            const leaf = document.createElement("div");
-            leaf.classList.add("leaf");
-            leaf.innerText = "😵‍💫"; // Bisa ganti ke 🌿 jika mau lebih hijau
-            document.body.appendChild(leaf);
-
-            // Posisi acak di layar
-            const startPos = Math.random() * window.innerWidth;
-            const duration = Math.random() * 5 + 3; // 3s - 8s
-            const size = Math.random() * 20 + 20; // 20px - 40px
-
-            leaf.style.left = `${startPos}px`;
-            leaf.style.fontSize = `${size}px`;
-            leaf.style.animationDuration = `${duration}s`;
-
-            // Hapus elemen setelah animasi selesai
-            setTimeout(() => {
-                leaf.remove();
-            }, duration * 1000);
+    function updateCountdown() {
+<!--        const targetDateString = "[[${targetDate}]]";-->
+         const targetDate = new Date("2025-03-14T22:15:00");
+<!--        const targetDate = new Date(targetDateString);-->
+        if (isNaN(targetDate.getTime())) {
+            document.getElementById("countdown").innerHTML = "Invalid Date";
+            return;
         }
-
-        // Buat daun setiap 500ms
-        setInterval(createLeaf, 500);
+        const countdownInterval = setInterval(() => {
+            const now = new Date();
+            const diff = targetDate - now;
+            if (diff <= 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("title").innerHTML = "Good night XMXCH 💖";
+                showMessages();
+                setInterval(createExplosion, 1000);
+                document.getElementById("bgMusic").play();
+                return;
+            }
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}:${minutes}:${seconds}`;
+        }, 1000);
+    }
 
     function showMessages() {
         const messages = [
             "Wait.., take this moment with ur camera",
-            "The special moment has arrived! 🎉",
-            "Happy birthday, may every moment of your life be as beautiful as your smile.❤️🎉",
-            "And rejoice in the LORD; then He will give you the desires of your heart 💕",
-            "btw",
-            "You are the most amazing person in my life! ❤️",
-            "I am so grateful to have you by my side. 💕",
-            "Let's make more unforgettable memories together! 🌟"
-                ];
+            "i make this simple website",
+            "create with love @marnaek__",
+             "The time has arrived! 🎉",
+             "Special for you be as beautiful as your smile.❤🎉",
+             "for a special person",
+             "btw",
+             "You are the most amazing person in my life! ❤",
+             "I am so grateful to have you by my side. 💕",
+             "Let's make more unforgettable memories together!🌟"];
         let index = 0;
         const countdownElement = document.getElementById("countdown");
         countdownElement.innerHTML = messages[index];

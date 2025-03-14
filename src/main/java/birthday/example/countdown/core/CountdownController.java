@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 
 @Controller
 public class CountdownController {
-    @GetMapping("/Praylin-Simarmata")
+    @GetMapping("/XMXCH")
 //    http://localhost:8080/Praylin-Simarmata/?eventDate=2025-03-10T14:48:00
     public String countdownPage(@RequestParam(
             name = "eventDate", required = false) String eventDate, Model model) {
@@ -19,8 +19,8 @@ public class CountdownController {
         return "countdown";
     }
 
-    @GetMapping("/game")
-    public String gamePage() {
-        return "game"; // Mengarah ke game.html di folder templates
-    }
+//    @GetMapping("/game")
+//    public String gamePage() {
+//        return "game"; // Mengarah ke game.html di folder templates
+//    }
 }
