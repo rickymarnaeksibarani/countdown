@@ -18,4 +18,9 @@ public class CountdownController {
         model.addAttribute("targetDate", targetDate);
         return "countdown";
     }
+
+    @GetMapping("/game")
+    public String gamePage() {
+        return "game"; // Mengarah ke game.html di folder templates
+    }
 }

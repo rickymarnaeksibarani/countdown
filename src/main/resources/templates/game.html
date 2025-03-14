@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XoX Multiplayer Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f5f5dc; /* Cream color */
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 5px;
+            margin: 20px auto;
+            width: 320px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            font-size: 2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eee;
+            cursor: pointer;
+            border: 2px solid #333;
+        }
+        .cell.taken {
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+<h2>XoX Multiplayer Game</h2>
+<div class="board" id="board"></div>
+<h3 id="status">Player X's turn</h3>
+<button onclick="resetGame()">Restart Game</button>
+
+<audio id="soundX" src="https://www.myinstants.com/media/sounds/bruh.mp3"></audio>
+<audio id="soundO" src="https://www.myinstants.com/media/sounds/mac-quack.mp3"></audio>
+<audio id="winX" src="https://www.myinstants.com/media/sounds/ack.mp3"></audio>
+<audio id="winO" src="https://www.myinstants.com/media/sounds/ngakak-laugh-annoying.mp3"></audio>
+
+<script>
+    const board = document.getElementById("board");
+    let currentPlayer = "X";
+    let cells = [];
+    const soundX = document.getElementById("soundX");
+    const soundO = document.getElementById("soundO");
+    const winX = document.getElementById("winX");
+    const winO = document.getElementById("winO");
+
+    function createBoard() {
+        board.innerHTML = "";
+        cells = [];
+        for (let i = 0; i < 9; i++) {
+            let cell = document.createElement("div");
+            cell.classList.add("cell");
+            cell.dataset.index = i;
+            cell.addEventListener("click", handleMove);
+            board.appendChild(cell);
+            cells.push(cell);
+        }
+    }
+
+    function handleMove(event) {
+        let cell = event.target;
+        if (!cell.textContent) {
+            cell.textContent = currentPlayer;
+            cell.classList.add("taken");
+            playSound(currentPlayer);
+            if (checkWinner()) {
+                document.getElementById("status").textContent = `Player ${currentPlayer} wins!`;
+                playWinSound(currentPlayer);
+                endGame();
+                return;
+            }
+            if ([...cells].every(cell => cell.textContent)) {
+                document.getElementById("status").textContent = "It's a draw!";
+                return;
+            }
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            document.getElementById("status").textContent = `Player ${currentPlayer}'s turn`;
+        }
+    }
+
+    function playSound(player) {
+    if (player === "X") {
+        soundX.currentTime = 0;
+        soundX.play();
+    } else {
+        soundO.currentTime = 0;
+        soundO.play();
+    }
+}
+
+    function playWinSound(player) {
+        if (player === "X") {
+            winX.play();
+        } else {
+            winO.play();
+        }
+    }
+
+    function checkWinner() {
+        const winPatterns = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8],
+            [0, 3, 6], [1, 4, 7], [2, 5, 8],
+            [0, 4, 8], [2, 4, 6]
+        ];
+        return winPatterns.some(pattern => {
+            let [a, b, c] = pattern;
+            return cells[a].textContent && cells[a].textContent === cells[b].textContent && cells[a].textContent === cells[c].textContent;
+        });
+    }
+
+    function endGame() {
+        cells.forEach(cell => cell.removeEventListener("click", handleMove));
+    }
+
+        function resetGame() {
+            currentPlayer = "X";
+            document.getElementById("status").textContent = "Player X's turn";
+            stopAllSounds();
+            createBoard();
+        }
+
+        function stopAllSounds() {
+            soundX.pause();
+            soundX.currentTime = 0;
+            soundO.pause();
+            soundO.currentTime = 0;
+            winX.pause();
+            winX.currentTime = 0;
+            winO.pause();
+            winO.currentTime = 0;
+        }
+
+    createBoard();
+</script>
+</body>
+</html>
